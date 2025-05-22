@@ -7,6 +7,7 @@ using Assignment5.Utilities;
 
 namespace Assignment5
 {
+    //Global Enums
     public enum Size { S, M, X, XXL, OS }
     public enum Status { NotInUse = 1, LowUsage = 2, HighUsage = 3 }
     [Flags]
@@ -22,7 +23,7 @@ namespace Assignment5
     {
         public static uint id_counter = 1;
 
-        //Clothing item's fields
+        //Attributes
         uint id;
         string name;
         string color_code;
@@ -34,10 +35,6 @@ namespace Assignment5
         public uint Id {
             get => id;
             set {id = (value > 0) ? value : throw new ArgumentException("Invalid clothing item ID.");}
-        }
-        public string User_id { 
-            get;
-            private set;
         }
         public string Name { 
             get => name;
@@ -64,7 +61,7 @@ namespace Assignment5
             set {seasons = (Enum.IsDefined(typeof(Seasons), value)) ? value : throw new ArgumentException("Invalid season.");}
         }
 
-        //Constructors
+        //Constructor
         public ClothingItem() { } // Default constructor
         public ClothingItem(string name, string color_code, Seasons seasons, Size size, Status status)
         {

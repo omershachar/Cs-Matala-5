@@ -14,21 +14,31 @@ namespace Assignment5
         DateTime birth_date;
         List<ClothingItem> clothing_items = new List<ClothingItem>();
 
-        //Constructor
+        //Properties
+        public string First_name { get { return first_name; } }
+        public string Last_name { get { return last_name; } }
+        public string User_id { get { return user_id; } }
+
+        //Constructors
+        protected User()
+        {
+            this.user_id = "0000";
+            this.first_name = "Default";
+            this.last_name = "User";
+            this.nick_name = "Defaulty";
+            this.phone_number = "0000000000";
+            this.birth_date = new DateTime(2000, 1, 1);
+        }
+
         public User(string userId, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
         {
             this.user_id = (Validator.IsNumberValid(userId)) ? userId : throw new ArgumentException("Invalid user id.");
             this.first_name = (Validator.IsStringValid(firstName)) ? firstName : throw new ArgumentException("Invalid first name.");
             this.last_name = (Validator.IsStringValid(lastName)) ? lastName : throw new ArgumentException("Invalid last name.");
-            this.nick_name = (Validator.IsStringValid(nickName)) ? nick_name : throw new ArgumentException("Invalid nick name.");
+            this.nick_name = (Validator.IsStringValid(nickName)) ? nickName : throw new ArgumentException("Invalid nick name.");
             this.phone_number = (Validator.IsNumberValid(phoneNumber)) ? phoneNumber : throw new ArgumentException("Invalid phone number.");
             this.birth_date = (Validator.IsDateValid(birthDate)) ? birthDate : throw new ArgumentException("Invalid date.");
         }
-
-        //Getters
-        public string First_name { get { return first_name; } }
-        public string Last_name { get { return last_name; } }
-        public string User_id { get { return user_id; } }
 
         //Methods
         public void AddClothingItem(ClothingItem item)
