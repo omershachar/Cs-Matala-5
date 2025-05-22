@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assignment5.Utilities;
 
 namespace Assignment5
 {
-    internal class User
+    public class User
     {
         //Attributes
-        String user_id, first_name, last_name, nick_name, phone_number;
+        string user_id, first_name, last_name, nick_name, phone_number;
         DateTime birth_date;
         List<ClothingItem> clothing_items = new List<ClothingItem>();
 
         //Constructor
         public User(string userId, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
         {
-            this.user_id = (isNumberValid(userId)) ? userId : throw new ArgumentException("Invalid user id.");
-            this.first_name = (isStringValid(firstName)) ? firstName : throw new ArgumentException("Invalid first name.");
-            this.last_name = (isStringValid(lastName)) ? lastName : throw new ArgumentException("Invalid last name.");
-            this.nick_name = (isStringValid(nickName)) ? nick_name : throw new ArgumentException("Invalid nick name.");
-            this.phone_number = (isNumberValid(phoneNumber)) ? phoneNumber : throw new ArgumentException("Invalid phone number.");
-            this.birth_date = (isDateValid(birthDate)) ? birthDate : throw new ArgumentException("Invalid date.");
+            this.user_id = (Validator.IsNumberValid(userId)) ? userId : throw new ArgumentException("Invalid user id.");
+            this.first_name = (Validator.IsStringValid(firstName)) ? firstName : throw new ArgumentException("Invalid first name.");
+            this.last_name = (Validator.IsStringValid(lastName)) ? lastName : throw new ArgumentException("Invalid last name.");
+            this.nick_name = (Validator.IsStringValid(nickName)) ? nick_name : throw new ArgumentException("Invalid nick name.");
+            this.phone_number = (Validator.IsNumberValid(phoneNumber)) ? phoneNumber : throw new ArgumentException("Invalid phone number.");
+            this.birth_date = (Validator.IsDateValid(birthDate)) ? birthDate : throw new ArgumentException("Invalid date.");
         }
 
         //Getters
@@ -70,15 +71,5 @@ namespace Assignment5
                 Console.WriteLine("No clothing items found.");
             }
         }
-
-        //Helper functions
-        private Boolean isNumberValid(string num)
-        {return !string.IsNullOrWhiteSpace(num) && num.All(char.IsDigit);}
-
-        private Boolean isStringValid(String str)
-        {return !string.IsNullOrWhiteSpace(str) && str.All(char.IsLetter);}
-
-        private Boolean isDateValid(DateTime date)
-        {return date.Year > 1900 && date.Year < DateTime.Now.Year;}
     }
 }

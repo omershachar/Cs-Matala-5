@@ -18,7 +18,7 @@ namespace Assignment5
         Winter = 4,
         Spring = 8
     }
-    internal class ClothingItem
+    public class ClothingItem
     {
         public static uint id_counter = 1;
 
