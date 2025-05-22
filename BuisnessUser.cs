@@ -17,7 +17,7 @@ namespace Assignment5
         public string Instagram_link
         {
             get => instagram_link;
-            set => instagram_link = (string.IsNullOrWhiteSpace(value)) ? value : throw new ArgumentException("Invalid Instagram link.");
+            set => instagram_link = (!string.IsNullOrEmpty(value)) ? value : throw new ArgumentException("Invalid instagram link.");
         }
 
         //Constructors
@@ -26,8 +26,9 @@ namespace Assignment5
             Instagram_link = "https://instagram.com/default";
         }
 
-        public BusinessUser(string instagramLink, string password, string email, string userId, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
-            : base(password, email, userId, firstName, lastName, nickName, phoneNumber, birthDate)
+        public BusinessUser
+            (string userId, string email, string password, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate, string instagramLink)
+            : base(userId, email, password, firstName, lastName, nickName, phoneNumber, birthDate)
         {
             Instagram_link = instagramLink;
         }
@@ -78,6 +79,7 @@ namespace Assignment5
             base.Print();
             Console.WriteLine($"Instagram Link: {Instagram_link}");
             PrintPopupEvents();
+            Console.WriteLine("++---------------++");
         }
     }
 }

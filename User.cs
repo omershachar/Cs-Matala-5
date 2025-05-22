@@ -10,19 +10,19 @@ namespace Assignment5
     public class User
     {
         //Attributes
-        string user_id, first_name, last_name, nick_name, phone_number;
+        string userId, first_name, last_name, nick_name, phone_number;
         DateTime birth_date;
         List<ClothingItem> clothing_items = new List<ClothingItem>();
 
         //Properties
         public string First_name { get { return first_name; } }
         public string Last_name { get { return last_name; } }
-        public string User_id { get { return user_id; } }
+        public string User_id { get { return userId; } }
 
         //Constructors
         protected User()
         {
-            this.user_id = "0000";
+            this.userId = "0000";
             this.first_name = "Default";
             this.last_name = "User";
             this.nick_name = "Defaulty";
@@ -32,11 +32,11 @@ namespace Assignment5
 
         public User(string userId, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
         {
-            this.user_id = (Validator.IsNumberValid(userId)) ? userId : throw new ArgumentException("Invalid user id.");
+            this.userId = (Validator.IsNumberValid(userId)) ? userId : throw new ArgumentException("Invalid user id.");
             this.first_name = (Validator.IsStringValid(firstName)) ? firstName : throw new ArgumentException("Invalid first name.");
             this.last_name = (Validator.IsStringValid(lastName)) ? lastName : throw new ArgumentException("Invalid last name.");
             this.nick_name = (Validator.IsStringValid(nickName)) ? nickName : throw new ArgumentException("Invalid nick name.");
-            this.phone_number = (Validator.IsNumberValid(phoneNumber)) ? phoneNumber : throw new ArgumentException("Invalid phone number.");
+            this.phone_number = (!string.IsNullOrWhiteSpace(phoneNumber)) ? phoneNumber : throw new ArgumentException("Invalid phone number.");
             this.birth_date = (Validator.IsDateValid(birthDate)) ? birthDate : throw new ArgumentException("Invalid date.");
         }
 
@@ -66,8 +66,9 @@ namespace Assignment5
 
         public virtual void Print()
         {
-            Console.WriteLine($"Details User ({first_name}) ({last_name}) - ({user_id}):");
-            Console.WriteLine($"nickName: ({nick_name})\nPhone: ({phone_number})\nBirth date: ({birth_date})");
+            Console.WriteLine($"User id: {userId}");
+            Console.WriteLine($"Name: {first_name} {last_name}");
+            Console.WriteLine($"nickName: {nick_name}\nPhone: {phone_number}\nBirth date: {birth_date}\n");
             if (clothing_items.Count > 0)
             {
                 Console.WriteLine("Clothing items:");
@@ -80,6 +81,7 @@ namespace Assignment5
             {
                 Console.WriteLine("No clothing items found.");
             }
+            Console.WriteLine("---------------");
         }
     }
 }

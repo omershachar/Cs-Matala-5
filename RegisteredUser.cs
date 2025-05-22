@@ -31,11 +31,11 @@ namespace Assignment5
             Email = "default@email.com";
             Password = "123";
         }
-        public RegisteredUser(string password, string email, string userId, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
+        public RegisteredUser(string userId, string email, string password, string firstName, string lastName, string nickName, string phoneNumber, DateTime birthDate)
             : base(userId, firstName, lastName, nickName, phoneNumber, birthDate)
         {
-            Password = password;
             Email = email;
+            Password = password;
         }
 
         //Methods
@@ -84,9 +84,10 @@ namespace Assignment5
 
         public override void Print()
         {
-            base.Print();
             Console.WriteLine($"Email: {Email}");
+            base.Print();
             PrintClothingAds();
+            Console.WriteLine("+---------------+");
         }
     }
 }
