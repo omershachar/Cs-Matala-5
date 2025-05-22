@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assignment5.Utilities;
 
 namespace Assignment5
 {
@@ -23,7 +24,6 @@ namespace Assignment5
 
         //Clothing item's fields
         uint id;
-        string user_id;
         string name;
         string color_code;
         Size size;
@@ -33,7 +33,7 @@ namespace Assignment5
         //Properties
         public uint Id {
             get => id;
-            set {id = (value > 0) ? value : throw new ArgumentException("Invalid cloting item ID.");}
+            set {id = (value > 0) ? value : throw new ArgumentException("Invalid clothing item ID.");}
         }
         public string User_id { 
             get;
@@ -41,12 +41,12 @@ namespace Assignment5
         }
         public string Name { 
             get => name;
-            set {name = (isStringValid(value)) ? value : throw new ArgumentException("Invalid clothing item name.");}
+            set {name = (Validator.IsStringValid(value)) ? value : throw new ArgumentException("Invalid clothing item name.");}
         }
         public string Color_code
         {
             get => color_code;
-            set {color_code = (isColorCodeValid(value)) ? value : throw new ArgumentException("Invalid color code.");}
+            set {color_code = (Validator.IsColorCodeValid(value)) ? value : throw new ArgumentException("Invalid color code.");}
         }
         public Size Size
         {
@@ -66,21 +66,19 @@ namespace Assignment5
 
         //Constructors
         public ClothingItem() { } // Default constructor
-        public ClothingItem(string user_id, string name, string color_code, Seasons seasons, Size size, Status status)
+        public ClothingItem(string name, string color_code, Seasons seasons, Size size, Status status)
         {
-            this.Id = id_counter++;
-            this.User_id = user_id;
-            this.Name = name;
-            this.Color_code = color_code;
-            this.Seasons = seasons;
-            this.Size = size;
-            this.Status = status;
+            Id = id_counter++;
+            Name = name;
+            Color_code = color_code;
+            Seasons = seasons;
+            Size = size;
+            Status = status;
         }
 
-        public void Print()
+        public virtual void Print()
         {
             Console.WriteLine($"\nCloth ID: {Id}");
-            Console.WriteLine($"User ID: {User_id}");
             Console.WriteLine($"Name: {Name}");
             Console.WriteLine($"Color (RGB): {Color_code}");
             Console.WriteLine($"Size: {Size}");
@@ -94,28 +92,6 @@ namespace Assignment5
                 Console.WriteLine("The cloth is good for winter.");
             if (Seasons.HasFlag(Seasons.Spring))
                 Console.WriteLine("The cloth is good for spring.");
-        }
-
-        //Helper functions
-        private Boolean isNumberValid(string num)
-        { return !string.IsNullOrWhiteSpace(num) && num.All(char.IsDigit); }
-
-        private Boolean isStringValid(String str)
-        { return !string.IsNullOrWhiteSpace(str) && str.All(char.IsLetter); }
-
-        private Boolean isDateValid(DateTime date)
-        { return date.Year > 1900 && date.Year < DateTime.Now.Year; }
-
-        private Boolean isColorCodeValid(string color_code)
-        {
-            if (color_code.Length != 7 || color_code[0] != '#')
-                return false;
-            for (int i = 1; i < color_code.Length; i++)
-            {
-                if (!char.IsDigit(color_code[i]) && (color_code[i] < 'A' || color_code[i] > 'F'))
-                    return false;
-            }
-            return true;
         }
     }
 }
