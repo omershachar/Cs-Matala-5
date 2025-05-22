@@ -46,6 +46,7 @@ namespace Assignment5
             PickupAddress = pickupAddress;
             AdStatus = false;
             ItemID = itemId;
+            UserId = userId; //You forgot to write this line...
         }
         public void PrintAdDetails()
         {
