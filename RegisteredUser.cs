@@ -66,10 +66,8 @@ namespace Assignment5
             }
         }
 
-        public override void Print()
+        public void PrintClothingAds()
         {
-            base.Print();
-            Console.WriteLine($"Email: {Email}");
             if (clothingAds.Count > 0)
             {
                 Console.WriteLine("Clothing Ads:");
@@ -82,6 +80,13 @@ namespace Assignment5
             {
                 Console.WriteLine("No clothing ads found.");
             }
+        }
+
+        public override void Print()
+        {
+            base.Print();
+            Console.WriteLine($"Email: {Email}");
+            PrintClothingAds();
         }
     }
 }
