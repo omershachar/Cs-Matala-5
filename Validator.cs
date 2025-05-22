@@ -19,8 +19,7 @@ namespace Assignment5.Utilities
 
         public static bool IsColorCodeValid(string code)
         {
-            if (string.IsNullOrWhiteSpace(code) || code.Length != 7 || code[0] != '#') return false;
-            return code.Skip(1).All(c => char.IsDigit(c) || (c >= 'A' && c <= 'F'));
+            return !(string.IsNullOrWhiteSpace(code) || code.Length != 7 || code[0] != '#');
         }
 
         public static bool IsEmailValid(string email)
