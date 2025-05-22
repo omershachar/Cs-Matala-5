@@ -38,7 +38,7 @@ namespace Assignment5
         }
         public string Name { 
             get => name;
-            set {name = (Validator.IsStringValid(value)) ? value : throw new ArgumentException("Invalid clothing item name.");}
+            set {name = (!string.IsNullOrWhiteSpace(value)) ? value : throw new ArgumentException("Invalid clothing item name.");}
         }
         public string Color_code
         {
