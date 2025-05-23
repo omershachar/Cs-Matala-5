@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,8 +60,19 @@ namespace Assignment5
                     new PopupEvent("987654321", "Winter Clearance", "456 Elm St", DateTime.Now, DateTime.Now.AddDays(5))
                 };
 
+                //Assigning clothing items to basic users
+                basicUsers[1].AddClothingItem(clothingItems[0]);
+
+                //Assigning clothing items to registered users
+                registeredUserAccounts[1].AddClothingItem(clothingItems[1]);
+                registeredUserAccounts[1].AddClothingItem(clothingItems[2]);
+
+                //Assigning clothing items to business users
+                businessClients[1].AddClothingItem(clothingItems[3]);
+                businessClients[1].AddClothingItem(clothingItems[4]);
+
                 Console.WriteLine("Hello and welcome to ANOTHER closet assignment!");
-                DisplayMenu(basicUsers,registeredUserAccounts,businessClients);
+                DisplayMenu(basicUsers,registeredUserAccounts,businessClients,clothingItems);
             }//End of try block
             
             //Exceptions handling
@@ -86,7 +98,10 @@ namespace Assignment5
             }
 
         }//End of Main method
-        public static void DisplayMenu(User[] basicUsers, RegisteredUser[] registeredUsers, BusinessUser[] businessUsers)
+
+        //Helper methods
+        public static void DisplayMenu
+            (User[] basicUsers, RegisteredUser[] registeredUsers, BusinessUser[] businessUsers, ClothingItem[] clothingItems)
         {
             while (true)
             {
@@ -94,6 +109,8 @@ namespace Assignment5
                 Console.WriteLine("1 - View basic users");
                 Console.WriteLine("2 - View registered users");
                 Console.WriteLine("3 - View business users");
+                Console.WriteLine("4 - Add ClothingAd to RegisteredUser");
+                Console.WriteLine("5 - Add PopupEvent to BusinessUser");
                 Console.WriteLine("0 - Exit");
                 Console.Write("Your choice: ");
                 string choice = Console.ReadLine();
@@ -118,6 +135,14 @@ namespace Assignment5
                             user.Print();
                         break;
 
+                    case "4":
+                        AddClothingAd(registeredUsers);
+                        break;
+
+                    case "5":
+                        AddPopupEvent(businessUsers,clothingItems);
+                        break;
+
                     case "0":
                         Console.WriteLine("Exiting program...");
                         return;
@@ -132,6 +157,85 @@ namespace Assignment5
                 Console.Clear();
             }
         }//End of DisplayMenu method
+
+        public static void AddClothingAd(RegisteredUser[] registeredUsers)
+        {
+            Console.Write("Enter RegisteredUser ID: "); //Receiving Reigistered ID from the user
+            string userId = Console.ReadLine();
+
+            RegisteredUser user = registeredUsers.FirstOrDefault(u => u.User_id == userId); //Finding the user in the array
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+            //Getting the ClothingAd details from the user
+            Console.Write("Enter Item ID to give: ");
+            if (!uint.TryParse(Console.ReadLine(), out uint itemId))
+            {
+                Console.WriteLine("Invalid Item ID.");
+                return;
+            }
+
+            Console.Write("Enter pickup address: ");
+            string address = Console.ReadLine();
+
+            var ad = new ClothingAd(itemId, userId, address); //Creating the ClothingAd object
+            user.AddClothingAd(ad);
+            Console.WriteLine("ClothingAd added successfully.");
+        }//End of AddClothingAd method
+
+        public static void AddPopupEvent(BusinessUser[] businessUsers, ClothingItem[] clothingItems)
+        {
+            Console.Write("Enter BusinessUser ID: "); //Receiving BusinessUser ID from the user
+            string userId = Console.ReadLine();
+
+            BusinessUser user = businessUsers.FirstOrDefault(u => u.User_id == userId); //Finding the user in the array
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+            //Getting the PopupEvent details from the user
+            Console.Write("Enter event name: ");
+            string eventName = Console.ReadLine();
+
+            Console.Write("Enter pickup address: ");
+            string pickup = Console.ReadLine();
+
+            Console.Write("Enter start date (yyyy-MM-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime start))
+            {
+                Console.WriteLine("Invalid start date.");
+                return;
+            }
+
+            Console.Write("Enter end date (yyyy-MM-dd): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime end))
+            {
+                Console.WriteLine("Invalid end date.");
+                return;
+            }
+
+            var popup = new PopupEvent(userId, eventName, pickup, start, end); //Creating the PopupEvent object
+
+            Console.Write("Enter Item ID to give: "); //Receiving Item ID from the user
+            if (!uint.TryParse(Console.ReadLine(), out uint itemId))
+            {
+                Console.WriteLine("Invalid Item ID.");
+                return;
+            }
+            ClothingItem item = clothingItems.FirstOrDefault(i => i.Id == itemId); //Finding the clothing item in the array
+            if (item == null)
+            {
+                Console.WriteLine("Item not found.");
+                return;
+            }
+            popup.AddClothingItem(item); //Adding clothing item to the popup event
+            user.AddPopupEvent(popup); //Adding the popup event to the business user
+            Console.WriteLine("PopupEvent added successfully.");
+        }//End of AddPopupEvent method
+
 
     }//End of Program class
 }//End of namespace
