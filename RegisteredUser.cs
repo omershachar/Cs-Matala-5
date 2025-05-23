@@ -78,7 +78,7 @@ namespace Assignment5
             }
             else
             {
-                Console.WriteLine("No clothing ads found.");
+                Console.WriteLine("No clothing ads found.\n");
             }
         }
 
@@ -87,7 +87,6 @@ namespace Assignment5
             Console.WriteLine($"Email: {Email}");
             base.Print();
             PrintClothingAds();
-            Console.WriteLine("+---------------+");
         }
     }
 }

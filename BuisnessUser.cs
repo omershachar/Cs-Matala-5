@@ -70,16 +70,15 @@ namespace Assignment5
             }
             else
             {
-                Console.WriteLine("No popup events found.");
+                Console.WriteLine("No popup events found.\n");
             }
         }
 
         public override void Print()
         {
-            base.Print();
             Console.WriteLine($"Instagram Link: {Instagram_link}");
+            base.Print();
             PrintPopupEvents();
-            Console.WriteLine("++---------------++");
         }
     }
 }

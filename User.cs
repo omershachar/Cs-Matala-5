@@ -68,20 +68,20 @@ namespace Assignment5
         {
             Console.WriteLine($"User id: {userId}");
             Console.WriteLine($"Name: {first_name} {last_name}");
-            Console.WriteLine($"nickName: {nick_name}\nPhone: {phone_number}\nBirth date: {birth_date}\n");
+            Console.WriteLine($"nickName: {nick_name}\nPhone: {phone_number}\nBirth date: {birth_date}");
             if (clothing_items.Count > 0)
             {
-                Console.WriteLine("Clothing items:");
+                Console.WriteLine($"\n- {First_name}'s Closet: -");
                 foreach (var item in clothing_items)
                 {
                     item.Print();
                 }
+                Console.WriteLine("------------");
             }
             else
             {
-                Console.WriteLine("No clothing items found.");
+                Console.WriteLine("No clothing items found.\n");
             }
-            Console.WriteLine("---------------");
         }
     }
 }
